@@ -22,6 +22,7 @@ public class AdminController {
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
         Admin savedAdmin = adminService.saveAdmin(admin);
         return new ResponseEntity<>(savedAdmin, HttpStatus.CREATED);
+
     }
 
 
