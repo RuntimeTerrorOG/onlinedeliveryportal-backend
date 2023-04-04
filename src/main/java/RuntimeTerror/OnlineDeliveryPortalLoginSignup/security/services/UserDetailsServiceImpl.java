@@ -14,11 +14,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
+
+    // a method that takes 'username' and returns 'UserDetails' object
+
     @Override
+    //@Transactional -> ensure transaction management handle my spring (ensure integrity of database)
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
 
+                //if user not found it throws UsernameNotFoundException
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
         return UserDetailsImpl.build(user);

@@ -5,6 +5,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
+
+//SignupRequest comes when sign in has 4 fields 'username', 'email', 'role' and 'password'
 public class SignupRequest {
     @NotBlank
     @Size(min = 3, max = 20)
@@ -22,7 +24,7 @@ public class SignupRequest {
     private String password;
 
 
-
+    //getters and setters to access and modify
     public String getUsername() {
         return username;
     }

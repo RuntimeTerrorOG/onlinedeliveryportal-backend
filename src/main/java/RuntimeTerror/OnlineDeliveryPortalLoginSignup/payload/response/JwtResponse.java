@@ -2,6 +2,8 @@ package RuntimeTerror.OnlineDeliveryPortalLoginSignup.payload.response;
 
 import java.util.List;
 
+
+/* a class that represent the JWT response payload for a JWT authentication request*/
 public class JwtResponse {
     private String token; // JWT token
     private String type = "Bearer";    // Token type. here set to 'Bearer'
@@ -11,6 +13,7 @@ public class JwtResponse {
     private List<String> roles;
 
 
+    //a constructor take all these fields as argument and initialize a member variable
     public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles) {
         this.token = accessToken;
         this.id = id;
@@ -19,6 +22,8 @@ public class JwtResponse {
         this.roles = roles;
     }
 
+
+    //getters and setters to access and modify
 
     public String getAccessToken() {
         return token;

@@ -21,6 +21,9 @@ public class Role {
         this.name = name;
     }
 
+
+    //getters and setters to access and modify the values of these 'id' and 'name' fields
+
     public Integer getId() {
         return id;
     }

@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
+/* creating a table name 'users' with 4 columns 'id','username','email' and 'password' where 'id' is auto generated */
 @Entity
 @Table(name = "users",
         uniqueConstraints = {
@@ -18,10 +19,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //@NotBlank that this field cant be blank
+    //@Size to give max number of characters
     @NotBlank
     @Size(max = 20)
     private String username;
 
+    //@Email to validate the email
     @NotBlank
     @Size(max = 50)
     @Email
@@ -31,6 +35,8 @@ public class User {
     @Size(max = 120)
     private String password;
 
+    //here make relation between 'users' and 'roles' tables using 'user_id' and 'role_id' as foreign keys
+    //the join table name is 'user_roles'
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(  name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -40,12 +46,16 @@ public class User {
     public User() {
     }
 
+
+    //here create User object using by taking 'username','email' and 'password as parameters
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
+
+    //getters and setters to access and modify columns
     public Long getId() {
         return id;
     }

@@ -46,6 +46,11 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+
+
+    /* expects a LoginRequest(POST request) which contains username and password. If authentication successful generate JWT
+    and return user_id, username, email, roles*/
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -67,14 +72,23 @@ public class AuthController {
                 roles));
     }
 
+
+    /* expects a SignupRequest(POST request) which contains username, email and password.Then check if the username
+    or email is already taken if not create new user object with the role. If no role assign default ROLE_USER will be assigned*/
+
     @PostMapping("/signup")
+
     //checks whether the username already exists
+
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
+
+
+        //checks whether the email already exists
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
@@ -83,6 +97,8 @@ public class AuthController {
         }
 
 
+        // Create new user's account and here also received password is encoding using BCryptPasswordEncoder
+
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
@@ -90,6 +106,9 @@ public class AuthController {
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
+
+
+        //checks the roles
 
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)

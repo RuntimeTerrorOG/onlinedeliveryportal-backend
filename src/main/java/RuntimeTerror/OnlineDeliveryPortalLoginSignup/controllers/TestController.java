@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/test")
 public class TestController {
 
+    //'Public Content' can be access by all user roles
 
     @GetMapping("/all")
     public String allAccess() {
         return "Public Content.";
     }
 
+
+    //return 'User Content' to relevant user
 
     @GetMapping("/user")
     @PreAuthorize("hasRole('USER') or hasRole('DELIVERY') or hasRole('ADMIN')")
@@ -25,12 +28,16 @@ public class TestController {
     }
 
 
+    //return 'Delivery Board' to only delivery role
+
     @GetMapping("/delivery")
     @PreAuthorize("hasRole('DELIVERY')")
     public String deliveryAccess() {
         return "Delivery Board.";
     }
 
+
+    //return 'Admin Board' to only admin role
 
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")

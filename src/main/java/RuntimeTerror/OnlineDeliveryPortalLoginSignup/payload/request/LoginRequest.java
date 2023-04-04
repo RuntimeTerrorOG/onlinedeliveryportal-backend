@@ -2,6 +2,7 @@ package RuntimeTerror.OnlineDeliveryPortalLoginSignup.payload.request;
 
 import javax.validation.constraints.NotBlank;
 
+//LoginRequest comes when sign in has 2 fields 'username' and 'password'
 public class LoginRequest {
     @NotBlank
     private String username;
@@ -10,7 +11,7 @@ public class LoginRequest {
     private String password;
 
 
-
+    //getters and setters to access and modify
     public String getUsername() {
         return username;
     }

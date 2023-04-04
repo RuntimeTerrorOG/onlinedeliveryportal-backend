@@ -1,5 +1,7 @@
 package RuntimeTerror.OnlineDeliveryPortalLoginSignup.payload.response;
 
+
+//create messages to communicate information back to client
 public class MessageResponse {
     private String message;
 

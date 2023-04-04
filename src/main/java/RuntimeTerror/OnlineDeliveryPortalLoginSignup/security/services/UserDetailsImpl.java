@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+
+//contains information about authenticated users including their username, email, password and roles
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -21,11 +23,15 @@ public class UserDetailsImpl implements UserDetails {
     private String email;
 
 
+    //@JsonIgnore -> this field should not be serialized to JSON (prevent exposing password in API responses)
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
+
+    /* constructor used to create a new instance of the 'UserDetailsImpl' class based on the information
+    from the 'User' entity */
     public UserDetailsImpl(Long id, String username, String email, String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
@@ -35,6 +41,8 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
+
+    // Builds UserDetailsImpl object from User object
     public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
@@ -48,11 +56,15 @@ public class UserDetailsImpl implements UserDetails {
                 authorities);
     }
 
+
+    // Returns the collection of authorities assigned to the user
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
+
+    //returns 'id', 'email', 'password', 'username'
     public Long getId() {
         return id;
     }
@@ -72,6 +84,8 @@ public class UserDetailsImpl implements UserDetails {
     }
 
 
+
+    //returns true or false for following methods
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -93,6 +107,8 @@ public class UserDetailsImpl implements UserDetails {
     }
 
 
+
+    // Returns whether two UserDetailsImpl objects are equal based on their IDs
     @Override
     public boolean equals(Object o) {
         if (this == o)
