@@ -11,26 +11,43 @@ import java.util.List;
 @RequestMapping(value = "api/v1/user")
 @CrossOrigin
 public class UserController {
+
     @Autowired
     private UserService userService;
 
-    @GetMapping("/getUser")
-    public List<UserDTO> getUser(){
-
+    @GetMapping("/getUsers")
+    public List<UserDTO> getUser() {
         return userService.getAllUsers();
     }
-    @PostMapping("/saveUser")
-    public UserDTO saveUser(@RequestBody UserDTO userDTO){
 
+    @PostMapping("/saveUser")
+    public UserDTO saveUser(@RequestBody UserDTO userDTO) {
         return userService.saveUser(userDTO);
     }
     @PutMapping("/updateUser")
-    public UserDTO updateUser(@RequestBody UserDTO userDTO){
+    public UserDTO updateUser(@RequestBody UserDTO userDTO) {
         return userService.updateUser(userDTO);
     }
-    @DeleteMapping("/deleteUser")
-    public boolean deleteUser(@RequestBody UserDTO userDTO){
 
+    @DeleteMapping("/deleteUser")
+    public boolean deleteUser(@RequestBody UserDTO userDTO) {
         return userService.deleteUser(userDTO);
     }
+
+    @GetMapping("/getUserByUserId/{userID}")
+    public UserDTO getUserByUserID(@PathVariable String userID){
+        return userService.getUserByUserID(userID);
+    }
+
+    @GetMapping("/getUserByUserIDAndAddress/{userID}/{address}")
+    public UserDTO getUserByUserIDAndAddress(@PathVariable String userID ,@PathVariable String address){
+        System.out.println("User ID :"+ userID +"User address :" +address);
+        return userService.getUserByUserIDAndPassword(userID,address);
+    }
+
+    @PutMapping("/updatePassword")
+    public UserDTO updatePassword(@RequestBody UserDTO userDTO) {
+        return userService.updatePassword(userDTO.getEmail(), userDTO.getUsername(), userDTO.getPassword());
+    }
+
 }
