@@ -2,6 +2,7 @@ package RuntimeTerror.OnlineDeliveryPortalLoginSignup.payload.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -20,8 +21,11 @@ public class SignupRequest {
     private Set<String> role;
 
     @NotBlank
-    @Size(min = 6, max = 40)
+    @Size(min = 8, max = 40)
+//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+//            message = "Password must contain at least 1 lowercase letter, 1 uppercase letter, 1 digit, 1 special character, and be at least 8 characters long.")
     private String password;
+
 
 
     //getters and setters to access and modify

@@ -3,6 +3,7 @@ package RuntimeTerror.OnlineDeliveryPortalLoginSignup.models;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,9 +32,16 @@ public class User {
     @Email
     private String email;
 
+
     @NotBlank
     @Size(max = 120)
+//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+//            message = "Password must contain at least 1 lowercase letter, 1 uppercase letter, 1 digit, 1 special character, and be at least 8 characters long.")
     private String password;
+
+
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
 
     //here make relation between 'users' and 'roles' tables using 'user_id' and 'role_id' as foreign keys
     //the join table name is 'user_roles'
@@ -94,6 +102,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
     }
 }
 
